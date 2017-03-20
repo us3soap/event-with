@@ -39,16 +39,13 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-import { firebaseConfig } from '../configs'
 import auth from '../services/firebaseService'
+import firebase from 'firebase'
 import toastr from 'toastr'
 import moment from 'moment'
 
-let app = firebase.initializeApp(firebaseConfig)
-let db = app.database()
-let partenairesRef = db.ref('partenaires')
-let eventsRef = db.ref('events')
+let partenairesRef = firebase.database().ref('partenaires')
+let eventsRef = firebase.database().ref('events')
 
 export default {
   name: 'eventPrivate',
@@ -60,7 +57,8 @@ export default {
         hour: '',
         nb: 2,
         created: '',
-        createdBy: auth.getUser()
+        createdBy: auth.getUser(),
+        users: [auth.getUser()]
       },
       isValid: true
     }

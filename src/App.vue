@@ -23,6 +23,11 @@
 
 <script>
 import auth from './services/firebaseService'
+import firebase from 'firebase'
+import { firebaseConfig } from './configs'
+
+firebase.initializeApp(firebaseConfig)
+
 const user = auth.getUser()
 
 export default {

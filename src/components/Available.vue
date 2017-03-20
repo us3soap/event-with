@@ -4,15 +4,15 @@
 
         <md-subheader>Evenements disponibles</md-subheader>
 
-        <md-list-item>
+        <md-list-item v-for="event in filterEvents" :key="event.activity">
           <md-avatar>
-            <img src="https://placeimg.com/40/40/people/1" alt="People">
+            <img v-bind:src="event.createdBy.photoURL" alt="People">
           </md-avatar>
 
           <div class="md-list-text-container">
-            <span>Kevin Valette</span>
-            <span>Squash du marais</span>
-            <p>10/03/2017 12:00 - 13:20</p>
+            <span>{{event.createdBy.displayName}}</span>
+            <span>{{event.activity}}</span>
+            <p>{{event.date}} {{event.hour}}</p>
           </div>
 
           <md-button class="md-icon-button md-list-action">
@@ -26,11 +26,30 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+import auth from '../services/firebaseService'
+
+let eventsRef = firebase.database().ref('events')
+
 export default {
   name: 'dashboard',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  firebase: {
+    events: eventsRef
+  },
+  computed: {
+    filterEvents: function () {
+      var result = []
+      for (var i = 0, l = this.events.length; i < l; i++) {
+        if (this.events[i].createdBy.uid !== auth.getUser().uid) {
+          result.push(this.events[i])
+        }
+      }
+      return result
     }
   }
 }
