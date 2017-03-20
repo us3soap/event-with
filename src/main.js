@@ -4,15 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueMaterial from 'vue-material'
-import firebase from 'firebase'
+import VueFire from 'vuefire'
 import auth from './services/firebaseService'
-import { firebaseConfig } from './configs'
 
 Vue.use(VueMaterial)
-
-const initApp = () => {
-  firebase.initializeApp(firebaseConfig)
-}
+Vue.use(VueFire)
 
 Vue.material.registerTheme({
   default: {
@@ -30,8 +26,6 @@ Vue.material.registerTheme({
 })
 
 Vue.config.productionTip = false
-
-initApp()
 
 router.beforeEach((to, from, next) => {
   auth.authUser().then(() => {
