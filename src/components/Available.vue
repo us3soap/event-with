@@ -11,13 +11,13 @@
 
           <div class="md-list-text-container">
             <span>{{event.createdBy.displayName}}</span>
-            <span>{{event.activity}}</span>
-            <p>{{event.date}} {{event.hour}}</p>
+            <span>Le {{event.date}}</span>
+            <p>De {{event.begin}} à {{event.end}}</p>
           </div>
 
-          <md-button class="md-icon-button md-list-action">
+          <button v-on:click="addConcurrent(event['.key'])" class="md-icon-button md-list-action">
             <md-icon class="md-primary">check</md-icon>
-          </md-button>
+          </button>
 
           <md-divider class="md-inset"></md-divider>
         </md-list-item>
@@ -45,11 +45,17 @@ export default {
     filterEvents: function () {
       var result = []
       for (var i = 0, l = this.events.length; i < l; i++) {
-        if (this.events[i].createdBy.uid !== auth.getUser().uid) {
+        if (this.events[i].createdBy.uid !== auth.getUser().uid && this.events[i].concurrent === undefined) {
           result.push(this.events[i])
         }
       }
       return result
+    }
+  },
+  methods: {
+    addConcurrent: function (key) {
+      console.log(key)
+      eventsRef.child(key).child('concurrent').set(auth.getUser())
     }
   }
 }

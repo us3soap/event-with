@@ -11,15 +11,16 @@
 
           <div class="md-list-text-container">
             <span>{{event.createdBy.displayName}}</span>
-            <span>{{event.activity}}</span>
+            <span v-if="event.concurrent">{{event.concurrent.displayName}}</span>
+            <span v-if="! event.concurrent">En attente d'un partenaire</span>
             <p>
-              {{event.date}} {{event.hour}}
+              Le {{event.date}} de {{event.begin}} à {{event.end}} 
             </p>
           </div>
 
-          <md-button class="md-icon-button md-list-action">
-            <md-icon class="md-primary">check</md-icon>
-          </md-button>
+          <button v-on:click="deleteEvent(event['.key'])" class="md-icon-button md-list-action">
+            <md-icon class="md-primary">delete</md-icon>
+          </button>
 
           <md-divider class="md-inset"></md-divider>
         </md-list-item>
@@ -47,11 +48,22 @@ export default {
     filterEvents: function () {
       var result = []
       for (var i = 0, l = this.events.length; i < l; i++) {
-        if (this.events[i].createdBy.uid === auth.getUser().uid) {
-          result.push(this.events[i])
+        if (this.events[i].concurrent === undefined) {
+          if (this.events[i].createdBy.uid === auth.getUser().uid) {
+            result.push(this.events[i])
+          }
+        } else {
+          if (this.events[i].createdBy.uid === auth.getUser().uid || this.events[i].concurrent.uid === auth.getUser().uid) {
+            result.push(this.events[i])
+          }
         }
       }
       return result
+    }
+  },
+  methods: {
+    deleteEvent: function (key) {
+      eventsRef.child(key).remove()
     }
   }
 }
