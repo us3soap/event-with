@@ -1,5 +1,6 @@
 <template>
   <div class="phone-viewport">
+      <md-progress v-if="loading" md-indeterminate></md-progress>
       <md-list class="custom-list md-triple-line">
 
         <md-subheader>Evenements disponibles</md-subheader>
@@ -15,9 +16,9 @@
             <p>De {{event.begin}} à {{event.end}}</p>
           </div>
 
-          <button v-on:click="addConcurrent(event['.key'])" class="md-icon-button md-list-action">
+          <md-button @click.native="addConcurrent(event['.key'])" class="md-icon-button md-list-action">
             <md-icon class="md-primary">check</md-icon>
-          </button>
+          </md-button>
 
           <md-divider class="md-inset"></md-divider>
         </md-list-item>
@@ -28,6 +29,7 @@
 <script>
 import firebase from 'firebase'
 import auth from '../services/firebaseService'
+import moment from 'moment'
 
 let eventsRef = firebase.database().ref('events')
 
@@ -35,7 +37,7 @@ export default {
   name: 'dashboard',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      loading: true
     }
   },
   firebase: {
@@ -44,8 +46,9 @@ export default {
   computed: {
     filterEvents: function () {
       var result = []
+      this.loading = false
       for (var i = 0, l = this.events.length; i < l; i++) {
-        if (this.events[i].createdBy.uid !== auth.getUser().uid && this.events[i].concurrent === undefined) {
+        if (this.events[i].createdBy.uid !== auth.getUser().uid && this.events[i].concurrent === undefined && moment((this.events[i].date)).isSameOrAfter(moment(), 'day')) {
           result.push(this.events[i])
         }
       }

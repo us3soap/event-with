@@ -5,9 +5,9 @@
 
     <h2 class="md-title" style="flex: 1">Event-With</h2>
 
-    <button v-show="user.uid" @click="logout" class="md-icon-button">
+    <md-button @click.native="logout" v-show="user.uid"class="md-icon-button">
       <md-icon>power_settings_new</md-icon>
-    </button>
+    </md-button>
   </md-toolbar>
   <div class="login" v-show="!user.uid">
     <div id="firebaseui-auth-container"></div>

@@ -1,5 +1,8 @@
 <template>
   <div class="phone-viewport">
+    <md-snackbar md-position="top center" ref="snackbar" md-duration="4000">
+      <span>L'évènement a bien été ajouté.</span>
+    </md-snackbar>
     
     <md-subheader>Ajouter un evenement</md-subheader>
 
@@ -23,7 +26,7 @@
             <span class="md-error" v-show="!isValid && event.end === ''">Invalide</span>
         </md-input-container>
 
-        <button  v-on:click="addEvent"class="md-raised md-primary">Ajouter</button>
+        <md-button @click.native="addEvent"class="md-raised md-primary">Ajouter</md-button>
     </div>
   </div>
 </template>
@@ -31,7 +34,6 @@
 <script>
 import auth from '../services/firebaseService'
 import firebase from 'firebase'
-import toastr from 'toastr'
 import moment from 'moment'
 
 let eventsRef = firebase.database().ref('events')
@@ -72,7 +74,7 @@ export default {
         this.event.date = ''
         this.event.begin = ''
         this.event.end = ''
-        toastr.success('L\'évènement est disponible')
+        this.$refs.snackbar.open()
       }
     }
   }
