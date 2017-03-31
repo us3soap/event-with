@@ -70,6 +70,7 @@ export default {
       }
 
       if (this.isValid) {
+        this.event.date = moment(this.event.date).format('YYYY-MM-DD')
         this.event.created = moment().format()
         eventsRef.push(this.event)
         this.event.date = ''

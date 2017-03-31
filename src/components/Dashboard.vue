@@ -21,7 +21,7 @@
             <span class="label label-success" v-if="event.concurrent">Confirmé</span>
             <span class="label label-warning" v-if="! event.concurrent">En attente</span>
             <p>
-              Le {{moment(event.date).format('DD/MM/YYYY')}} de {{event.begin}} à {{event.end}} 
+              <md-icon>access_time</md-icon> {{moment(event.date).format('DD/MM/YYYY')}}  {{event.begin}} - {{event.end}} 
             </p>
           </div>
 
@@ -30,7 +30,9 @@
           </md-button>
 
           <md-divider class="md-inset"></md-divider>
+          
         </md-list-item>
+       
       </md-list>
   </div>
 </template>
@@ -70,7 +72,9 @@ export default {
           }
         }
       }
-      return result
+      return result.sort(function (a, b) {
+        return moment(a.date) - moment(b.date)
+      })
     }
   },
   methods: {
