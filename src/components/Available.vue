@@ -1,6 +1,11 @@
 <template>
   <div class="phone-viewport">
       <md-progress v-if="loading" md-indeterminate></md-progress>
+
+      <md-snackbar md-position="top center" ref="snackbar" md-duration="4000">
+       <span>L'évènement a bien été rejoint.</span>
+      </md-snackbar>
+
       <md-list class="custom-list md-triple-line">
 
         <md-subheader>Evenements disponibles</md-subheader>
@@ -57,7 +62,7 @@ export default {
   },
   methods: {
     addConcurrent: function (key) {
-      console.log(key)
+      this.$refs.snackbar.open()
       eventsRef.child(key).child('concurrent').set(auth.getUser())
     }
   }

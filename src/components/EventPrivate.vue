@@ -2,6 +2,7 @@
   <div class="phone-viewport">
     <md-snackbar md-position="top center" ref="snackbar" md-duration="4000">
       <span>L'évènement a bien été ajouté.</span>
+      <md-button class="md-accent" href="#/" md-theme="light-blue" @click.native="$refs.snackbar.close()">Voir</md-button>
     </md-snackbar>
     
     <md-subheader>Ajouter un evenement</md-subheader>
