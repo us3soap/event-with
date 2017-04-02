@@ -39,6 +39,7 @@ import auth from '../services/firebaseService'
 import moment from 'moment'
 
 let eventsRef = firebase.database().ref('events')
+let relationsRef = firebase.database().ref('relations')
 
 export default {
   name: 'dashboard',
@@ -49,7 +50,8 @@ export default {
     }
   },
   firebase: {
-    events: eventsRef
+    events: eventsRef,
+    relations: relationsRef
   },
   computed: {
     filterEvents: function () {
@@ -57,7 +59,15 @@ export default {
       this.loading = false
       for (var i = 0, l = this.events.length; i < l; i++) {
         if (this.events[i].createdBy.uid !== auth.getUser().uid && this.events[i].concurrent === undefined && moment((this.events[i].date)).isSameOrAfter(moment(), 'day')) {
-          result.push(this.events[i])
+          if (this.events[i].public) {
+            result.push(this.events[i])
+          } else {
+            for (let k = 0, m = this.relations.length; k < m; k++) {
+              if (this.relations[k].relation.includes(auth.getUser().uid) && this.relations[k].relation.includes(this.events[i].createdBy.uid) && this.relations[k].status === 1) {
+                result.push(this.events[i])
+              }
+            }
+          }
         }
       }
       return result.sort(function (a, b) {

@@ -5,6 +5,12 @@
       <md-snackbar md-position="top center" ref="snackbar" md-duration="4000">
        <span>L'évènement a bien été annulé.</span>
       </md-snackbar>
+
+      <transition name="fade">
+        <div v-if="filterRelations > 0" class="alert alert-info" role="alert">
+          Vous avez <router-link to="/user/list" class="alert-link">{{filterRelations}} demandes d'ami</router-link> en attente
+        </div>
+      </transition>
       
       <md-list class="custom-list md-triple-line">
 
@@ -43,11 +49,13 @@ import auth from '../services/firebaseService'
 import moment from 'moment'
 
 let eventsRef = firebase.database().ref('events')
+let relationsRef = firebase.database().ref('relations')
 
 export default {
   name: 'dashboard',
   firebase: {
-    events: eventsRef
+    events: eventsRef,
+    relations: relationsRef
   },
   data () {
     return {
@@ -75,6 +83,15 @@ export default {
       return result.sort(function (a, b) {
         return moment(a.date) - moment(b.date)
       })
+    },
+    filterRelations: function () {
+      var result = []
+      for (var i = 0, l = this.relations.length; i < l; i++) {
+        if (this.relations[i].status === 0 && this.relations[i].createdBy.uid !== auth.getUser().uid && this.relations[i].relation.includes(auth.getUser().uid)) {
+          result.push(this.relations[i])
+        }
+      }
+      return result.length
     }
   },
   methods: {
@@ -160,5 +177,86 @@ a.label:focus {
 .label-danger[href]:hover,
 .label-danger[href]:focus {
   background-color: #c9302c;
+}
+.alert {
+  padding: 15px;
+  margin: 5px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.alert .alert-link {
+  font-weight: bold;
+}
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+.alert > p + p {
+  margin-top: 5px;
+}
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+.alert-success .alert-link {
+  color: #2b542c;
+}
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+.alert-info .alert-link {
+  color: #245269;
+}
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+.alert-warning .alert-link {
+  color: #66512c;
+}
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+.alert-danger .alert-link {
+  color: #843534;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
 }
 </style>

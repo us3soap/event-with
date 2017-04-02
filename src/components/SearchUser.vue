@@ -2,6 +2,10 @@
   <div class="phone-viewport">
 <md-list>
 
+    <md-snackbar md-position="top center" ref="snackbar" md-duration="4000">
+      <span>{{msg}}</span>
+    </md-snackbar>
+
     <md-list-item>
       <md-input-container>
         <label>Saisissez le nom ou prénom de la personne recherchée</label>
@@ -19,7 +23,7 @@
         <span>{{user.displayName}}</span>
 
         <md-button class="md-icon-button md-list-action">
-          <md-icon class="md-primary">add</md-icon>
+          <md-icon @click.native="addRelation(user.uid, user.displayName)" class="md-primary">add</md-icon>
         </md-button>
       </md-list-item>
     </transition>
@@ -30,31 +34,58 @@
 <script>
 import firebase from 'firebase'
 import auth from '../services/firebaseService'
+import moment from 'moment'
 
 let usersRef = firebase.database().ref('users')
+let relationsRef = firebase.database().ref('relations')
 
 export default {
   name: 'searchUser',
   data () {
     return {
       search: '',
-      owner: auth.getUser()
+      owner: auth.getUser(),
+      msg: ''
     }
   },
   firebase: {
-    users: usersRef
+    users: usersRef,
+    relations: relationsRef
   },
   computed: {
     filterUser: function () {
-      var result = []
-      for (var i = 0, l = this.users.length; i < l; i++) {
+      let result = []
+
+      for (let i = 0, l = this.users.length; i < l; i++) {
         if (this.users[i].displayName.includes(this.search) && this.users[i].uid !== this.owner.uid) {
-          result.push(this.users[i])
+          if (this.relations.length > 0) {
+            for (let k = 0, m = this.relations.length; k < m; k++) {
+              if (this.relations[k].relation.includes(this.owner.uid) && this.relations[k].relation.includes(this.users[i].uid)) {
+              } else {
+                result.push(this.users[i])
+              }
+            }
+          } else {
+            result.push(this.users[i])
+          }
         }
       }
       return result.sort(function (a, b) {
         return a.displayName - b.displayName
       })
+    }
+  },
+  methods: {
+    addRelation: function (key, name) {
+      let relation = {
+        createdBy: this.owner,
+        created: moment().format(),
+        relation: [this.owner.uid, key],
+        status: 0
+      }
+      relationsRef.push(relation)
+      this.msg = 'Une demande vient d\'être envoyée à ' + name
+      this.$refs.snackbar.open()
     }
   }
 }

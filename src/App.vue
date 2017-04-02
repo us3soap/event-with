@@ -29,7 +29,7 @@
         <md-list-expand>
           <md-list>
             <md-list-item class="md-inset" @click.native="navigateFromMenu('/user/search')">Rechercher</md-list-item>
-            <md-list-item class="md-inset">Mes amis</md-list-item>
+            <md-list-item class="md-inset" @click.native="navigateFromMenu('/user/list')">Mes amis</md-list-item>
           </md-list>
         </md-list-expand>
       </md-list-item>
