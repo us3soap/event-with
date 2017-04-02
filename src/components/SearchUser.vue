@@ -14,7 +14,6 @@
 
       <md-divider class="md-inset"></md-divider>
     </md-list-item>
-    <transition name="fade">
       <md-list-item v-for="user in filterUser">
         <md-avatar>
           <img :src="user.photoURL" :alt="user.displayName">
@@ -26,7 +25,6 @@
           <md-icon @click.native="addRelation(user.uid, user.displayName)" class="md-primary">add</md-icon>
         </md-button>
       </md-list-item>
-    </transition>
   </md-list>
   </div>
 </template>
@@ -59,11 +57,14 @@ export default {
       for (let i = 0, l = this.users.length; i < l; i++) {
         if (this.users[i].displayName.includes(this.search) && this.users[i].uid !== this.owner.uid) {
           if (this.relations.length > 0) {
+            let isContains = false
             for (let k = 0, m = this.relations.length; k < m; k++) {
               if (this.relations[k].relation.includes(this.owner.uid) && this.relations[k].relation.includes(this.users[i].uid)) {
-              } else {
-                result.push(this.users[i])
+                isContains = true
               }
+            }
+            if (!isContains) {
+              result.push(this.users[i])
             }
           } else {
             result.push(this.users[i])

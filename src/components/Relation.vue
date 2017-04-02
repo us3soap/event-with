@@ -88,7 +88,7 @@ export default {
       for (let i = 0, l = this.users.length; i < l; i++) {
         if (this.users[i].displayName.includes(this.search) && this.users[i].uid !== this.owner.uid) {
           for (let k = 0, m = this.relations.length; k < m; k++) {
-            if (this.relations[k].relation.includes(this.owner.uid) && this.relations[k].relation.includes(this.users[i].uid) && this.relations[k].status === 0) {
+            if (this.relations[k].createdBy.uid !== this.owner.uid && this.relations[k].relation.includes(this.owner.uid) && this.relations[k].relation.includes(this.users[i].uid) && this.relations[k].status === 0) {
               this.users[i].relation = this.relations[k]
               result.push(this.users[i])
             }
