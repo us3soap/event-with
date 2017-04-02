@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
 import EventPrivate from '@/components/EventPrivate'
 import Available from '@/components/Available'
+import SearchUser from '@/components/SearchUser'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/event/new',
       name: 'event',
       component: EventPrivate
+    },
+    {
+      path: '/user/search',
+      name: 'searchUser',
+      component: SearchUser
     }
   ]
 })

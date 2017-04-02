@@ -44,6 +44,12 @@ const _checkUser = (theUser) => {
     user.emailVerified = theUser.emailVerified
     user.photoURL = theUser.photoURL
     user.uid = theUser.uid
+    firebase.database().ref('users/' + user.uid).set({
+      displayName: user.displayName,
+      email: user.emailVerified,
+      photoURL: user.photoURL,
+      uid: theUser.uid
+    })
   } else {
     user.displayName = ''
     user.email = ''

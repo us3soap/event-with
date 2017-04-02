@@ -9,6 +9,14 @@
 
     <div class="form">
 
+        <md-input-container v-bind:class="[ !isValid && event.activity === '' ? 'md-input-invalid' : '']">
+          <label for="activity">Movie</label>
+          <md-select name="activity" id="activity" required v-model="event.activity">
+            <md-option v-for="activity in activities" :value="activity['.key']">{{activity.name}}</md-option>
+          </md-select>
+          <span class="md-error" v-show="!isValid && event.activity === ''">Invalide</span>
+        </md-input-container>
+
         <md-input-container v-bind:class="[ !isValid && event.date === '' ? 'md-input-invalid' : '']">
             <label>Date</label>
             <md-input v-model="event.date" required type="date"></md-input>
@@ -26,6 +34,14 @@
             <md-input type="time" v-model="event.end" required></md-input>
             <span class="md-error" v-show="!isValid && event.end === ''">Invalide</span>
         </md-input-container>
+        
+        <md-switch v-model="event.public" id="public" name="public" class="md-primary">Evenement public</md-switch>
+        <br />
+        <transition name="fade">
+          <div class="info" v-if="event.public"><md-icon class="md-primary">info</md-icon> L'évènement sera visible par tous.</div>
+          <div class="info" v-if="! event.public"><md-icon class="md-primary">info</md-icon> L'évènement sera visible uniquement par vos amis.</div>
+        </transition>
+        <br />
 
         <md-button @click.native="addEvent"class="md-raised md-primary">Ajouter</md-button>
     </div>
@@ -38,24 +54,34 @@ import firebase from 'firebase'
 import moment from 'moment'
 
 let eventsRef = firebase.database().ref('events')
+let activitiesRef = firebase.database().ref('activities')
 
 export default {
   name: 'eventPrivate',
   data () {
     return {
       event: {
+        activity: '',
         date: '',
         begin: '',
         end: '',
         created: '',
+        public: true,
         createdBy: auth.getUser()
       },
       isValid: true
     }
   },
+  firebase: {
+    activities: activitiesRef
+  },
   methods: {
     addEvent: function () {
       this.isValid = true
+
+      if (this.event.activity === '' && this.isValid) {
+        this.isValid = false
+      }
 
       if (this.event.date === '' && this.isValid) {
         this.isValid = false
@@ -92,4 +118,19 @@ export default {
     .fix {
         margin-bottom: 50px;
     }
+
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+      opacity: 0
+    }
+
+    .info {
+      color: rgba(0,0,0,.54);
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
 </style>

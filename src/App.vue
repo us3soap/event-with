@@ -22,20 +22,23 @@
        </h3>
       </div>
     </md-toolbar>
-    <md-card md-with-hover>
-      <md-card-header>
-        <div class="md-title">Event-with</div>
-        <div class="md-subhead">BETA</div>
-      </md-card-header>
+    <md-list>
+      <md-list-item>
+        <md-icon>contacts</md-icon>
+        <span>Mon réseau</span>
+        <md-list-expand>
+          <md-list>
+            <md-list-item class="md-inset" @click.native="navigateFromMenu('/user/search')">Rechercher</md-list-item>
+            <md-list-item class="md-inset">Mes amis</md-list-item>
+          </md-list>
+        </md-list-expand>
+      </md-list-item>
 
-      <md-card-content>
-        Un petit site fait rapidement pour permettre à tout le monde de trouver du monde pour jouer au squash...
-        <br/>
-        <br/>
-        Si vous avez des idées d'amélioration ou que vous avez des soucis d'utilisations, n'hésitez pas à me contacter.  
-      </md-card-content>
-
-    </md-card>
+      <md-list-item @click.native="logout">
+        <md-icon>power_settings_new</md-icon>
+        <span>Se déconnecter</span>
+      </md-list-item>
+    </md-list>
   </md-sidenav>
   <div class="login" v-show="!user.uid">
     <div id="firebaseui-auth-container"></div>
@@ -87,6 +90,10 @@ export default {
     },
     close (ref) {
       console.log('Closed: ' + ref)
+    },
+    navigateFromMenu: function (where) {
+      this.toggleLeftSidenav()
+      this.$router.push(where)
     }
   }
 }
