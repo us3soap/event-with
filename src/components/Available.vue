@@ -12,7 +12,8 @@
 
         <md-list-item v-for="event in filterEvents" :key="event.activity">
           <md-avatar>
-            <img v-bind:src="event.createdBy.photoURL" alt="People">
+            <img v-if="event.createdBy.photoURL" v-bind:src="event.createdBy.photoURL" alt="People">
+            <img v-if="! event.createdBy.photoURL" src="/static/img/profil.jpg" alt="People">
           </md-avatar>
 
           <div class="md-list-text-container">

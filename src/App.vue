@@ -24,6 +24,17 @@
     </md-toolbar>
     <md-list>
       <md-list-item>
+        <md-icon>dashboard</md-icon>
+        <span>Mes activités</span>
+        <md-list-expand>
+          <md-list>
+            <md-list-item class="md-inset" @click.native="navigateFromMenu('/')">Dashboard</md-list-item>
+            <md-list-item class="md-inset" @click.native="navigateFromMenu('/event/available')">Disponible</md-list-item>
+            <md-list-item class="md-inset" @click.native="navigateFromMenu('/event/new')">Ajouter</md-list-item>
+          </md-list>
+        </md-list-expand>
+      </md-list-item>
+      <md-list-item>
         <md-icon>contacts</md-icon>
         <span>Mon réseau</span>
         <md-list-expand>
@@ -33,7 +44,6 @@
           </md-list>
         </md-list-expand>
       </md-list-item>
-
       <md-list-item @click.native="logout">
         <md-icon>power_settings_new</md-icon>
         <span>Se déconnecter</span>

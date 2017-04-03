@@ -7,11 +7,11 @@
     </md-snackbar>
 
     <md-subheader v-if="invitation">Demande en attente</md-subheader>
-    <transition name="fade">
 
       <md-list-item v-for="user in filterUserWaiting">
         <md-avatar>
-          <img :src="user.photoURL" :alt="user.displayName">
+          <img v-if="user.photoURL" :src="user.photoURL" :alt="user.displayName">
+          <img v-if="! user.photoURL" src="/static/img/profil.jpg" :alt="user.displayName">
         </md-avatar>
 
         <span>{{user.displayName}}</span>
@@ -23,13 +23,12 @@
           <md-icon @click.native="unconfirmRelation(user.relation['.key'], user.displayName)" class="md-primary">clear</md-icon>
         </md-button>
       </md-list-item>
-    </transition>
 
     <md-subheader>Mes amis</md-subheader>
-    <transition name="fade">
       <md-list-item v-for="user in filterUser">
         <md-avatar>
-          <img :src="user.photoURL" :alt="user.displayName">
+          <img v-if="user.photoURL" :src="user.photoURL" :alt="user.displayName">
+          <img v-if="! user.photoURL" src="/static/img/profil.jpg" :alt="user.displayName">
         </md-avatar>
 
         <span>{{user.displayName}}</span>
@@ -38,7 +37,6 @@
           <md-icon @click.native="deleteRelation(user.relation['.key'], user.displayName)" class="md-primary">block</md-icon>
         </md-button>
       </md-list-item>
-    </transition>
   </md-list>
   </div>
 </template>

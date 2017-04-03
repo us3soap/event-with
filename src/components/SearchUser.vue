@@ -16,7 +16,8 @@
     </md-list-item>
       <md-list-item v-for="user in filterUser">
         <md-avatar>
-          <img :src="user.photoURL" :alt="user.displayName">
+          <img v-if="user.photoURL" :src="user.photoURL" :alt="user.displayName">
+          <img v-if="! user.photoURL" src="/static/img/profil.jpg" :alt="user.displayName">
         </md-avatar>
 
         <span>{{user.displayName}}</span>
