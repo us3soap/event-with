@@ -66,32 +66,18 @@ export default {
   },
   computed: {
     filterEvents: function () {
-      var result = []
-      for (var i = 0, l = this.events.length; i < l; i++) {
-        this.loading = false
-        if (moment((this.events[i].date)).isSameOrAfter(moment(), 'day')) {
-          if (this.events[i].concurrent === undefined) {
-            if (this.events[i].createdBy.uid === auth.getUser().uid) {
-              result.push(this.events[i])
-            }
-          } else {
-            if (this.events[i].createdBy.uid === auth.getUser().uid || this.events[i].concurrent.uid === auth.getUser().uid) {
-              result.push(this.events[i])
-            }
-          }
-        }
-      }
+      let result = []
+      result = result.concat(this.events.filter((el) => (moment((el.date)).isSameOrAfter(moment(), 'day') && el.concurrent === undefined && el.createdBy.uid === auth.getUser().uid)))
+      result = result.concat(this.events.filter((el) => (moment((el.date)).isSameOrAfter(moment(), 'day') && el.concurrent !== undefined && (el.createdBy.uid === auth.getUser().uid || el.concurrent.uid === auth.getUser().uid))))
+
+      this.loading = false
       return result.sort(function (a, b) {
         return moment(a.date) - moment(b.date)
       })
     },
     filterRelations: function () {
-      var result = []
-      for (var i = 0, l = this.relations.length; i < l; i++) {
-        if (this.relations[i].status === 0 && this.relations[i].createdBy.uid !== auth.getUser().uid && this.relations[i].relation.includes(auth.getUser().uid)) {
-          result.push(this.relations[i])
-        }
-      }
+      let result = []
+      result = result.concat(this.relations.filter((el) => (el.status === 0 && el.createdBy.uid !== auth.getUser().uid && el.relation.includes(auth.getUser().uid))))
       return result.length
     }
   },

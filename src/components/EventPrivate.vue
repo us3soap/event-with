@@ -12,7 +12,7 @@
         <md-input-container v-bind:class="[ !isValid && event.activity === '' ? 'md-input-invalid' : '']">
           <label for="activity">Activité</label>
           <md-select name="activity" id="activity" required v-model="event.activity">
-            <md-option v-for="activity in activities" :value="activity['.key']">{{activity.name}}</md-option>
+            <md-option v-for="activity in activities" :key="activity['.key']" :value="activity['.key']">{{activity.name}}</md-option>
           </md-select>
           <span class="md-error" v-show="!isValid && event.activity === ''">Invalide</span>
         </md-input-container>

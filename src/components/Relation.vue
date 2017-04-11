@@ -8,7 +8,7 @@
 
     <md-subheader v-if="invitation">Demande en attente</md-subheader>
 
-      <md-list-item v-for="user in filterUserWaiting">
+      <md-list-item v-for="user in filterUserWaiting" :key="user['.key']">
         <md-avatar>
           <img v-if="user.photoURL" :src="user.photoURL" :alt="user.displayName">
           <img v-if="! user.photoURL" src="/static/img/profil.jpg" :alt="user.displayName">
@@ -25,7 +25,7 @@
       </md-list-item>
 
     <md-subheader>Mes amis</md-subheader>
-      <md-list-item v-for="user in filterUser">
+      <md-list-item v-for="user in filterUser" :key="user['.key']">
         <md-avatar>
           <img v-if="user.photoURL" :src="user.photoURL" :alt="user.displayName">
           <img v-if="! user.photoURL" src="/static/img/profil.jpg" :alt="user.displayName">

@@ -16,7 +16,8 @@
       <div class="md-toolbar-container">
         <h3 class="md-title">
         <md-avatar class="md-large">
-          <img v-bind:src="user.photoURL" alt="People">
+          <img v-if="user.photoURL" v-bind:src="user.photoURL" alt="People">
+           <img v-if="! user.photoURL" src="/static/img/profil.jpg" :alt="user.displayName">
         </md-avatar>
         {{user.displayName}}
        </h3>

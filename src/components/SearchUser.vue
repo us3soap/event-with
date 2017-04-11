@@ -14,7 +14,7 @@
 
       <md-divider class="md-inset"></md-divider>
     </md-list-item>
-      <md-list-item v-for="user in filterUser">
+      <md-list-item v-for="user in filterUser" :key="user['.key']">
         <md-avatar>
           <img v-if="user.photoURL" :src="user.photoURL" :alt="user.displayName">
           <img v-if="! user.photoURL" src="/static/img/profil.jpg" :alt="user.displayName">

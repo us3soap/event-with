@@ -6,4 +6,8 @@ let firebaseConfig = {
   messagingSenderId: '404961037104'
 }
 
-export { firebaseConfig }
+let sendGrid = {
+  key: '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'
+}
+
+export { firebaseConfig, sendGrid }
