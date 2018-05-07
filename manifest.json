@@ -1,10 +1,10 @@
 {
     "dir": "ltr",
     "lang": "French",
-    "name": "event-with",
+    "name": "Event With",
     "scope": "/",
-    "display": "fullscreen",
-    "start_url": "https://event-with.firebaseapp.com/",
+    "display": "standalone",
+    "start_url": "./?utm_source=web_app_manifest",
     "short_name": "event with",
     "theme_color": "#2196F3",
     "description": "L'application pour gérer vos évenements",
