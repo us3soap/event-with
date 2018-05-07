@@ -6,9 +6,18 @@ import router from './router'
 import VueMaterial from 'vue-material'
 import VueFire from 'vuefire'
 import auth from './services/firebaseService'
+import VueAnalytics from 'vue-analytics'
+
+Vue.use(VueFire)
+Vue.use(VueMaterial)
+
+Vue.use(VueAnalytics, {
+  id: 'UA-115464945-1',
+  router
+})
+Vue.config.productionTip = false
 
 Vue.use(VueMaterial)
-Vue.use(VueFire)
 
 Vue.material.registerTheme({
   default: {

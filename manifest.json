@@ -1,0 +1,107 @@
+{
+    "dir": "ltr",
+    "lang": "French",
+    "name": "event-with",
+    "scope": "/",
+    "display": "fullscreen",
+    "start_url": "https://event-with.firebaseapp.com/",
+    "short_name": "event with",
+    "theme_color": "transparent",
+    "description": "L'application pour gérer vos évenements",
+    "orientation": "portrait",
+    "background_color": "#2196F3",
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "/images/608226e5-0610-f776-5c6b-2966110b7201.webPlatform.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/229088b1-7237-b1fc-dc66-db5b46ffa446.webPlatform.png",
+            "sizes": "1240x600",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/74e5e965-099c-fb2b-87f8-f195e0a04537.webPlatform.png",
+            "sizes": "300x300",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/f524f3dc-7f77-232b-e8b1-7fc0fee723ff.webPlatform.png",
+            "sizes": "150x150",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/6bafce51-9ac1-5f13-4529-bf18080b4b51.webPlatform.png",
+            "sizes": "88x88",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/f83297b2-d518-67b4-1767-95b6be8bf14a.webPlatform.png",
+            "sizes": "24x24",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/474a7bd1-a0d8-4344-0ddc-9d0299022efb.webPlatform.png",
+            "sizes": "50x50",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/1a3e3b1a-b7b1-d9ef-5c89-34dbf4bf9af2.webPlatform.png",
+            "sizes": "620x300",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/624abb2c-7321-6d62-13f0-37b06c15fa52.webPlatform.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/ba1c5eb3-d064-6270-83d5-48b41aab555b.webPlatform.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/fdba15b0-8e0f-db5c-d83f-c999f64da391.webPlatform.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/d3d8233f-aba8-d653-3b91-22f0162c73a8.webPlatform.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/89fcb05e-af69-22c7-f5e1-0bc076165756.webPlatform.png",
+            "sizes": "36x36",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/b1fd105d-8744-3ba2-f358-1ef137ada24b.webPlatform.png",
+            "sizes": "1024x1024",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/eb0461db-7244-81d1-7c34-b20b66530122.webPlatform.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/655b2e1e-4767-cca5-3adb-bd5fe617dcf2.webPlatform.png",
+            "sizes": "152x152",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/e0b54ba8-f012-18d3-0520-85c752fdb59e.webPlatform.png",
+            "sizes": "120x120",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/c2b57a44-7074-adf7-0dad-345523d15ff7.webPlatform.png",
+            "sizes": "76x76",
+            "type": "image/png"
+        }
+    ]
+}
